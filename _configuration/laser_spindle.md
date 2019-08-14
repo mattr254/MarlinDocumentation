@@ -90,3 +90,17 @@ In addition to the above, fans can be assigned to PWM pins. If you pick a pin th
 
  - As with the 2560, the PWMs on Timer1 are not available.
  - All PWMs have their own pins.
+ 
+ ****ATTENTION**** Marlin 2.0
+ For Users that want to use laser support correctly in Marlin 2.0 Change Marlin.cpp @ line 636
+ Comment out lines 
+   // Limit check_axes_activity frequency to 10Hz
+  static millis_t next_check_axes_ms = 0;
+  if (ELAPSED(ms, next_check_axes_ms)) {
+    planner.check_axes_activity();
+    next_check_axes_ms = ms + 100UL;
+  }
+  and input
+  planner.check_axes_activity();
+  
+  courtsey of p3p and the guys at issue #11576
